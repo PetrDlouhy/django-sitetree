@@ -9,16 +9,19 @@ def hook(settings):
     # apps.append('sitetree.tests.testapp.conf.MyAppConfig')
 
     settings['TEMPLATES'][0]['OPTIONS']['context_processors'].append('django.template.context_processors.request')
+    settings['ROOT_URLCONF'] = 'sitetree.tests.testapp.urls'
 
     return settings
 
 
 pytest_plugins = configure_djangoapp_plugin(
+    app_name='sitetree',
     settings=dict(
         SITETREE_CLS='sitetree.tests.testapp.mysitetree.MySiteTree',
     ),
     admin_contrib=True,
-    settings_hook=hook
+    settings_hook=hook,
+    migrate=True
 )
 
 
